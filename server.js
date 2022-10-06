@@ -63,9 +63,9 @@ app.get("/api/animals", (req, res) => {
 });
 
 app.get("/api/animals/:id", (req, res) => {
-  const result = findById(req.params.id, animals);
-  if (result) {
-    res.json(result);
+  let result = findById(req.params.id, animals);
+  if (result.query) {
+    result = filterByQuery(req.query, result);
   } else {
     res.sendStatus(404);
   }
